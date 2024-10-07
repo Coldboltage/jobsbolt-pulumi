@@ -2,6 +2,8 @@ import { rabbitmqModule } from "./rabbitmq/rabbitmq-module";
 import { apiModule } from "./api/api-module";
 import { postgresModule } from "./postgres/postgres-module";
 import { prometheusModule } from "./prometheus/prometheus-module";
+import { grafanaModule } from "./grafana/grafana-module";
+
 
 
 const rabbitmqResources = rabbitmqModule();
@@ -28,6 +30,7 @@ export const prometheusConfigMapName = prometheusResources.configMap.metadata.na
 export const prometheusPVCName = prometheusResources.pvc.metadata.name;
 
 const apiResources = apiModule(rabbitmqResources.deployment, postgresResources.deployment, prometheusResources.deployment);
+const grafanaResources = grafanaModule(prometheusResources.deployment);
 
 // API resources
 export const apiDeploymentName = apiResources.deployment.metadata.name;

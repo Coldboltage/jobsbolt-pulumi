@@ -14,13 +14,13 @@ export const prometheusConfigMap = () => {
     data: {
       "prometheus.yml": `
         global:
-          scrape_interval: 15s
-          evaluation_interval: 15s
+          scrape_interval: 5s
+          evaluation_interval: 5s
 
         scrape_configs:
           - job_name: 'api'
             static_configs:
-              - targets: ['jobsbolt-api-service:9090']
+              - targets: ['jobsbolt-api-service:3000']
       `,
     },
   })
