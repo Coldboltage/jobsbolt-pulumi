@@ -11,7 +11,7 @@ export const grafanaService = () => {
     spec: {
       selector: appLabels,
       ports: [
-        { port: 3000, targetPort: 3001, nodePort: 30001, name: 'grafana' }
+        { port: 300, targetPort: 3000, nodePort: 30001, name: 'grafana' }
       ],
       type: 'NodePort',
     },

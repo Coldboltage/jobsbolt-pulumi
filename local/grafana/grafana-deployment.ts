@@ -19,9 +19,17 @@ export const grafanaDeployment = (...dependsOn: Input<Resource>[]) => {
           labels: appLabels,
         },
         spec: {
+          volumes: [{
+            name: 'jobsbolt-grafana-volume',
+            persistentVolumeClaim: { claimName: 'jobsbolt-grafana-pvc' }
+          }],
           containers: [{
-            image: "grafana/grafana:latest",
+            image: "grafana/grafana",
             name: "jobsbolt-grafana",
+            volumeMounts: [{
+              name: 'jobsbolt-grafana-volume',
+              mountPath: '/var/lib/grafana'
+            }],
             ports: [{ containerPort: 3000, name: 'grafana' }],
             resources: {
               requests: { cpu: '100m', memory: '100Mi' },

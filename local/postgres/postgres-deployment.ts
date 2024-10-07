@@ -18,9 +18,13 @@ export const postgresDeployment = () => {
           labels: appLabels,
         },
         spec: {
+          volumes: [
+            { name: 'jobsbolt-postgres-volume', persistentVolumeClaim: { claimName: 'jobsbolt-postgres-pvc' } },
+          ],
           containers: [{
             image: "postgres:13",
             name: "jobsbolt-postgres",
+            volumeMounts: [{ name: 'jobsbolt-postgres-volume', mountPath: '/var/lib/postgresql/data' }],
             ports: [{ containerPort: 5432, name: 'postgres' }],
             resources: {
               requests: { cpu: '100m', memory: '100Mi' },
