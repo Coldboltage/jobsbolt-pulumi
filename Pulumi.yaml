@@ -1,0 +1,6 @@
+name: jobsbolt-pulumi
+description: A minimal Kubernetes TypeScript Pulumi program
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
