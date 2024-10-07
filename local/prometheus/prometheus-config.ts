@@ -20,7 +20,7 @@ export const prometheusConfigMap = () => {
         scrape_configs:
           - job_name: 'api'
             static_configs:
-              - targets: ['jobsbolt-api-service:9090']
+              - targets: ['jobsbolt-api-service:3000']
       `,
     },
   })
