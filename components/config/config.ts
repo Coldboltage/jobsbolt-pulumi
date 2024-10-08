@@ -3,7 +3,7 @@ import { z } from "zod";
 import { rabbitmqSchema } from "./schema/rabbitmq-schema";
 import { apiSchema } from "./schema/api-schema";
 import * as dotenv from 'dotenv';
-dotenv.config({ path: './../.env' });
+dotenv.config({ path: './.env' });
 
 
 export const loadConfig = () => {

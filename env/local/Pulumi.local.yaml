@@ -1,0 +1,19 @@
+config:
+  pulumi:tags:
+    pulumi:template: kubernetes-typescript
+  jobsbolt:RABBITMQ_REPLICA: "1"
+  jobsbolt:RABBITMQ_URL: jobsbolt-rabbitmq-service
+  jobsbolt:RABBITMQ_USERNAME: guest
+  jobsbolt:API_URL: "https://api.dev.jobsbolt.com"
+  jobsbolt:TYPEORM_TYPE: "postgres"
+  jobsbolt:TYPEORM_HOST: "jobsbolt-postgres-service"
+  jobsbolt:TYPEORM_PORT: "5432"
+  jobsbolt:TYPEORM_USERNAME: "coldbolt"
+  jobsbolt:TYPEORM_DATABASE: "jobsbolt-docker-local"
+  jobsbolt:GENERAL_TEST: "false"
+  jobsbolt:FIND_JOB: "false"
+  jobsbolt:TEST_BATCH: "false"
+  jobsbolt:DISCORD_TEST: "false"
+  jobsbolt:FULL_TEST: "false"
+  jobsbolt:SEEDER_NAME: "Alan Reid"
+  jobsbolt:SEEDER_EMAIL: "test@email.com"

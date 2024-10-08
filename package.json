@@ -1,6 +1,6 @@
 {
     "name": "jobsbolt-pulumi",
-    "main": "local/index.ts",
+    "main": "./env/**/index.ts",
     "devDependencies": {
         "@types/node": "^18",
         "typescript": "^5.0.0"
