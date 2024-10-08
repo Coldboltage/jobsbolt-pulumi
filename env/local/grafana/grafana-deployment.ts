@@ -3,7 +3,7 @@ import { Input, Resource } from "@pulumi/pulumi";
 
 const appLabels = { app: 'jobsbolt', component: 'grafana' };
 
-export const grafanaDeployment = (...dependsOn: Input<Resource>[]) => {
+export const createGrafanaDeployment = (...dependsOn: Input<Resource>[]) => {
   return new k8s.apps.v1.Deployment('jobsbolt-grafana-deployment', {
     metadata: {
       name: 'jobsbolt-grafana-deployment',

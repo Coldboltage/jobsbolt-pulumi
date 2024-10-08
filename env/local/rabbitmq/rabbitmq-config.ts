@@ -4,18 +4,18 @@ import { loadConfig } from "../config/config";
 // Load the validated config
 const rabbitmqConfig = loadConfig().rabbitmq
 
-export const rabbitmqConfigMap = () => {
-  return new k8s.core.v1.ConfigMap("jobsbolt-rabbitmq-config-map", {
-    metadata: {
-      name: "jobsbolt-rabbitmq-config-map",
-    },
-    data: {
-      "rabbitmq.conf": `
+
+export const rabbitmqConfigMap = new k8s.core.v1.ConfigMap("jobsbolt-rabbitmq-config-map", {
+  metadata: {
+    name: "jobsbolt-rabbitmq-config-map",
+  },
+  data: {
+    "rabbitmq.conf": `
       loopback_users.guest = false
       listeners.tcp.default = 5672
       management.tcp.port = 15672
       `,
-      replicas: rabbitmqConfig.RABBITMQ_REPLICA,
-    },
-  })
-}
+    replicas: rabbitmqConfig.RABBITMQ_REPLICA,
+  },
+})
+
