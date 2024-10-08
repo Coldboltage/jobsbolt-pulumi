@@ -1,4 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
+import { provider } from "../eks/eks-deployment";
 
 const appLabels = { app: 'jobsbolt', component: 'postgres' };
 
@@ -60,5 +61,6 @@ export const postgresDeployment = new k8s.apps.v1.Deployment('jobsbolt-postgres-
       },
     }
   }
-})
+}, { provider: provider })
+
 

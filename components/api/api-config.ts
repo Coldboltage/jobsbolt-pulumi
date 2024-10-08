@@ -1,5 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import { loadConfig } from "../config/config";
+import { provider } from "../eks/eks-deployment";
 
 const appLabels = { app: 'jobsbolt', component: 'api' };
 const config = loadConfig()
@@ -24,6 +25,5 @@ export const apiConfigMap = new k8s.core.v1.ConfigMap('jobsbolt-api-config', {
     FULL_TEST: config.api.FULL_TEST,
     RABBITMQ_USERNAME: config.api.RABBITMQ_USERNAME,
     RABBITMQ_URL: config.rabbitmq.RABBITMQ_URL,
-
   }
-})
+}, { provider: provider })

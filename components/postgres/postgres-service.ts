@@ -1,5 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import { loadConfig } from "../config/config";
+import { provider } from "../eks/eks-deployment";
 
 const appLabels = { app: 'jobsbolt', component: 'postgres' };
 
@@ -14,4 +15,5 @@ export const postgresService = new k8s.core.v1.Service('jobsbolt-postgres-servic
     ports: [{ port: 5432, targetPort: 5432, nodePort: 31000, name: 'postgres' }],
     type: 'NodePort'
   }
-})
+}, { provider: provider })
+

@@ -1,4 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
+import { provider } from "../eks/eks-deployment";
+
 import { loadConfig } from "../config/config";
 
 // Load the validated config
@@ -23,5 +25,6 @@ export const prometheusConfigMap = new k8s.core.v1.ConfigMap("jobsbolt-prometheu
               - targets: ['jobsbolt-api-service:3000']
       `,
   },
-})
+}, { provider: provider })
+
 

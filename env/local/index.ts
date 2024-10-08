@@ -10,12 +10,13 @@ import { postgresPV } from "./postgres/postgres-pv";
 import { prometheusDeployment } from "./prometheus/prometheus-deployment";
 import { prometheusService } from "./prometheus/prometheus-service";
 import { prometheusConfigMap } from "./prometheus/prometheus-config";
+import { prometheusPV } from "./prometheus/prometheus-pv";
 import { prometheusPVC } from "./prometheus/prometheus-pvc";
-import { createApiDeployment } from "./api/api-deployment";
+import { apiDeployment } from "./api/api-deployment";
 import { apiConfigMap } from "./api/api-config";
 import { apiService } from "./api/api-service";
 import { apiSecret } from "./api/api-secret";
-import { createGrafanaDeployment } from "./grafana/grafana-deployment";
+import { grafanaDeployment } from "./grafana/grafana-deployment";
 import { grafanaService } from "./grafana/grafana-service";
 import { grafanaPvc } from "./grafana/grafana-pvc";
 import { grafanaVolume } from "./grafana/grafana-volume";
@@ -38,17 +39,14 @@ export const postgresPVName = postgresPV.metadata.name;
 export const prometheusDeploymentName = prometheusDeployment.metadata.name;
 export const prometheusServiceName = prometheusService.metadata.name;
 export const prometheusConfigMapName = prometheusConfigMap.metadata.name;
+export const prometheusPVName = prometheusPV.metadata.name;
 export const prometheusPVCName = prometheusPVC.metadata.name;
-
-const apiDeployment = createApiDeployment(rabbitmqDeployment, postgresDeployment, prometheusDeployment);
 
 // API resources
 export const apiDeploymentName = apiDeployment.metadata.name;
 export const apiServiceName = apiService.metadata.name;
 export const apiConfigMapName = apiConfigMap.metadata.name;
 export const apiSecretName = apiSecret.metadata.name
-
-const grafanaDeployment = createGrafanaDeployment(prometheusDeployment);
 
 // Grafana resources
 export const grafanaDeploymentName = grafanaDeployment.metadata.name;

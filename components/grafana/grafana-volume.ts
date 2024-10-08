@@ -1,4 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
+import { provider } from "../eks/eks-deployment";
 
 const appLabels = { app: 'jobsbolt', component: 'grafana' };
 
@@ -17,4 +18,5 @@ export const grafanaVolume = new k8s.core.v1.PersistentVolume('jobsbolt-grafana-
       path: "\mnt\C:\Users\aland\Documents\projects\jobsbolt\jobsbolt-pulumi\local\grafana-data"
     }
   }
-})
+}, { provider: provider })
+

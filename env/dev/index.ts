@@ -11,14 +11,15 @@ import { prometheusDeployment } from "../../components/prometheus/prometheus-dep
 import { prometheusService } from "../../components/prometheus/prometheus-service";
 import { prometheusConfigMap } from "../../components/prometheus/prometheus-config";
 import { prometheusPVC } from "../../components/prometheus/prometheus-pvc";
-import { createApiDeployment } from "../../components/api/api-deployment";
 import { apiConfigMap } from "../../components/api/api-config";
 import { apiService } from "../../components/api/api-service";
 import { apiSecret } from "../../components/api/api-secret";
-import { createGrafanaDeployment } from "../../components/grafana/grafana-deployment";
 import { grafanaService } from "../../components/grafana/grafana-service";
 import { grafanaPvc } from "../../components/grafana/grafana-pvc";
 import { grafanaVolume } from "../../components/grafana/grafana-volume";
+import { apiDeployment } from "../local/api/api-deployment";
+import { grafanaDeployment } from "../local/grafana/grafana-deployment";
+import { prometheusPV } from "../local/prometheus/prometheus-pv";
 
 
 // RabitMQ resources
@@ -38,9 +39,8 @@ export const postgresPVName = postgresPV.metadata.name;
 export const prometheusDeploymentName = prometheusDeployment.metadata.name;
 export const prometheusServiceName = prometheusService.metadata.name;
 export const prometheusConfigMapName = prometheusConfigMap.metadata.name;
+export const prometheusPVName = prometheusPV.metadata.name;
 export const prometheusPVCName = prometheusPVC.metadata.name;
-
-const apiDeployment = createApiDeployment(rabbitmqDeployment, postgresDeployment, prometheusDeployment);
 
 // API resources
 export const apiDeploymentName = apiDeployment.metadata.name;
@@ -48,12 +48,8 @@ export const apiServiceName = apiService.metadata.name;
 export const apiConfigMapName = apiConfigMap.metadata.name;
 export const apiSecretName = apiSecret.metadata.name
 
-const grafanaDeployment = createGrafanaDeployment(prometheusDeployment);
-
 // Grafana resources
 export const grafanaDeploymentName = grafanaDeployment.metadata.name;
 export const grafanaServiceName = grafanaService.metadata.name;
 export const grafanaPVCName = grafanaPvc.metadata.name;
 export const grafanaVolumeName = grafanaVolume.metadata.name;
-
-
