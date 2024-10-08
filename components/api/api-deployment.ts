@@ -3,7 +3,7 @@ import { Input, Resource } from "@pulumi/pulumi";
 
 const appLabels = { app: 'jobsbolt', component: 'api' };
 
-export const apiDeployment = (...rest: Input<Resource>[]) => {
+export const createApiDeployment = (...rest: Input<Resource>[]) => {
   return new k8s.apps.v1.Deployment('jobsbolt-api-deployment', {
     metadata: {
       name: "jobsbolt-api-deployment",
