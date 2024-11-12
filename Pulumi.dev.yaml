@@ -1,0 +1,69 @@
+config:
+  pulumi:tags:
+    pulumi:template: kubernetes-typescript
+  jobsbolt:RABBITMQ_REPLICA: "1"
+  jobsbolt:RABBITMQ_URL: jobsbolt-rabbitmq-service
+  jobsbolt:RABBITMQ_USERNAME: guest
+  jobsbolt:API_URL: "https://api.dev.jobsbolt.com"
+  jobsbolt:TYPEORM_TYPE: "postgres"
+  jobsbolt:TYPEORM_HOST: "jobsbolt-postgres-service"
+  jobsbolt:TYPEORM_PORT: "5432"
+  jobsbolt:TYPEORM_USERNAME: "coldbolt"
+  jobsbolt:TYPEORM_DATABASE: "jobsbolt-docker-local"
+  jobsbolt:GENERAL_TEST: "false"
+  jobsbolt:FIND_JOB: "false"
+  jobsbolt:TEST_BATCH: "false"
+  jobsbolt:DISCORD_TEST: "false"
+  jobsbolt:FULL_TEST: "false"
+  jobsbolt:SEEDER_NAME: "Alan Reid"
+  jobsbolt:SEEDER_EMAIL: "test@email.com"
+  azure-native:location: eastus
+
+  # Azure Resource Manager configuration
+  jobsbolt:kubernetesVersion: 1.29.8
+  jobsbolt:nodeVmSize: Standard_D2pls_v5
+  jobsbolt:numWorkerNodes: 1
+  jobsbolt:prefixForDns: pulumi
+  jobsbolt:mgmtGroupId: 3c2068e3-0eaf-4be8-a1b1-1ccb29990bca
+  jobsbolt:sshPubKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1wNlU0YCStw79ITK48RCkpNM4oPimsPoJuI38VxtfFXa5SomAtu8UmcG1DvdXx2f2fHZd9LKWkrCcn+mJjfadO+XhnN7J/JEsU3QGd4rglR/BBWKOiTrVby2sRaSWeGUCBGReO1TnYNQ8y/1st3Ox2UWEiN9BIVmrNBzVhbN2j+DaSh5G4jq3AjVQ7kJrdale8JRjYXKXMV0UVbz0mWp2Eksb/0em7hOa6W/KqKI12fedRyxsn5o4v/5dCt5GUeInhMmw2TluHa2dyGWj7wLDU4XVHy0ScFQjEutjPHrVzpEpbFkkP82vi3IV/gUfNRDfR8QidOwdn5wuFUsUyYJtRTBQLtNZ2aSGvFQFBRmVEYb5cV4RMT3DG3zXShrgDVpGlFy6Sl84pmZkwdTQ7jpvBqiSVVesk17Bb8HBqWKlgi7MMGmyFG7DYsjsNDgCgT5wOnje2ka43HvjPHvDDLuoO1mCIFcf5pKGudPjk+FbqR1PBNuO0wCyIMKoh14cvzEsyaCr250H7Wgd3wbfQfPjSOKJX85I+kVJifnZQrBpMayhr6hY4ShHz7GU4S1OOXNYHBvZ0V8klUATAwK2G9A8bRyJJyVPLCCD64cBZ+e1SfoExxEefVgOUfwVcYnxc7sJud6+24XESCXVNLxJy9O9QyhyB5Snv5WHKiQrhnhdvw== your_email@example.com
+
+  # API
+  jobsbolt:api_deployment_replicas: 1
+  jobsbolt:api_deployment_containerImage: coldbolt/jobsbolt-api:linux-dev-latest
+  jobsbolt:api_deployment_resources_requests_cpu: 200m
+  jobsbolt:api_deployment_resources_requests_memory: 300Mi
+  jobsbolt:api_deployment_resources_limits_cpu: 1
+  jobsbolt:api_deployment_resources_limits_memory: 1Gi
+
+  # Grafana
+  jobsbolt:grafana_deployment_replicas: 1
+  jobsbolt:grafana_deployment_resources_requests_cpu: 100m
+  jobsbolt:grafana_deployment_resources_requests_memory: 100Mi
+  jobsbolt:grafana_deployment_resources_limits_cpu: 500m
+  jobsbolt:grafana_deployment_resources_limits_memory: 500Mi
+  jobsbolt:grafana_pvc_storage: 2Gi
+
+  # Postgres
+  jobsbolt:postgres_deployment_replica: 1
+  jobsbolt:postgres_deployment_resources_requests_cpu: 500m
+  jobsbolt:postgres_deployment_resources_requests_memory: 512Mi
+  jobsbolt:postgres_deployment_resources_limits_cpu: 1000m
+  jobsbolt:postgres_deployment_resources_limits_memory: 1Gi
+  jobsbolt:postgres_pvc_storage: 5Gi
+
+  # Prometheus
+  jobsbolt:prometheus_deployment_replicas: 1
+  jobsbolt:prometheus_deployment_containerImage: prom/prometheus:latest
+  jobsbolt:prometheus_deployment_resources_requests_cpu: 100m
+  jobsbolt:prometheus_deployment_resources_requests_memory: 100Mi
+  jobsbolt:prometheus_deployment_resources_limits_cpu: 500m
+  jobsbolt:prometheus_deployment_resources_limits_memory: 500Mi
+  jobsbolt:prometheus_pvc_storage: 2Gi
+
+  # RabbitMQ
+  jobsbolt:rabbitmq_deployment_replicas: 1
+  jobsbolt:rabbitmq_deployment_containerImage: rabbitmq:latest
+  jobsbolt:rabbitmq_deployment_resources_requests_cpu: 100m
+  jobsbolt:rabbitmq_deployment_resources_requests_memory: 100Mi
+  jobsbolt:rabbitmq_deployment_resources_limits_cpu: 500m
+  jobsbolt:rabbitmq_deployment_resources_limits_memory: 500Mi

@@ -1,6 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import { loadConfig } from "../config/config";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
 
 // Load the validated config
 const postgresConfig = loadConfig().api

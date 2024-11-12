@@ -1,7 +1,9 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
+import { loadConfig } from "../config/config";
 
 const appLabels = { app: 'jobsbolt', component: 'grafana' };
+const config = loadConfig()
 
 export const grafanaDeployment = new k8s.apps.v1.Deployment('jobsbolt-grafana-deployment', {
   metadata: {
@@ -9,7 +11,7 @@ export const grafanaDeployment = new k8s.apps.v1.Deployment('jobsbolt-grafana-de
     labels: appLabels,
   },
   spec: {
-    replicas: 1,
+    replicas: +config.env.GRAFANA_DEPLOYMENT_REPLICAS,
     selector: {
       matchLabels: appLabels
     },
@@ -31,8 +33,8 @@ export const grafanaDeployment = new k8s.apps.v1.Deployment('jobsbolt-grafana-de
           }],
           ports: [{ containerPort: 3000, name: 'grafana' }],
           resources: {
-            requests: { cpu: '100m', memory: '100Mi' },
-            limits: { cpu: '500m', memory: '500Mi' },
+            requests: { cpu: config.env.GRAFANA_DEPLOYMENT_RESOURCES_REQUESTS_CPU, memory: config.env.GRAFANA_DEPLOYMENT_RESOURCES_REQUESTS_MEMORY },
+            limits: { cpu: config.env.GRAFANA_DEPLOYMENT_RESOURCES_LIMITS_CPU, memory: config.env.GRAFANA_DEPLOYMENT_RESOURCES_LIMITS_MEMORY },
           },
         }]
       },

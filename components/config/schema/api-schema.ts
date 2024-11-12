@@ -24,7 +24,6 @@ const apiSchema = z.object({
   SENTRY_AUTH_TOKEN: z.any().refine(value => value !== undefined, "SENTRY_AUTH_TOKEN is required"),
   TYPEORM_PASSWORD: z.any().refine(value => value !== undefined, "TYPEORM_PASSWORD is required"),
   RABBITMQ_PASSWORD: z.any().refine(value => value !== undefined, "RABBITMQ_PASSWORD is required"),
-
 });
 
 export { apiSchema };

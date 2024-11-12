@@ -1,5 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
 
 const appLabels = { app: 'jobsbolt', component: 'prometheus' };
 
@@ -11,7 +11,7 @@ export const prometheusService = new k8s.core.v1.Service('jobsbolt-prometheus-se
   },
   spec: {
     selector: appLabels,
-    ports: [{ port: 9090, targetPort: 9090, nodePort: 32000, name: 'prometheus' }],
-    type: 'NodePort'
+    ports: [{ port: 9090, targetPort: 9090, name: 'prometheus' }],
+    type: 'ClusterIP'
   }
 }, { provider: provider })

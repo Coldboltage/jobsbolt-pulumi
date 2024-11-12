@@ -1,7 +1,9 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
+import { loadConfig } from "../config/config";
 
 const appLabels = { app: 'jobsbolt', component: 'prometheus' };
+const config = loadConfig()
 
 
 export const prometheusDeployment = new k8s.apps.v1.Deployment('jobsbolt-prometheus-deployment', {
@@ -10,7 +12,7 @@ export const prometheusDeployment = new k8s.apps.v1.Deployment('jobsbolt-prometh
     labels: appLabels,
   },
   spec: {
-    replicas: 1,
+    replicas: +config.env.PROMETHEUS_DEPLOYMENT_REPLICAS,
     selector: {
       matchLabels: appLabels
     },
@@ -26,8 +28,8 @@ export const prometheusDeployment = new k8s.apps.v1.Deployment('jobsbolt-prometh
           name: "jobsbolt-prometheus",
           ports: [{ containerPort: 9090, name: 'prometheus' }],
           resources: {
-            requests: { cpu: '100m', memory: '100Mi' },
-            limits: { cpu: '500m', memory: '500Mi' },
+            requests: { cpu: config.env.PROMETHEUS_DEPLOYMENT_RESOURCES_REQUESTS_CPU, memory: config.env.PROMETHEUS_DEPLOYMENT_RESOURCES_REQUESTS_MEMORY },
+            limits: { cpu: config.env.PROMETHEUS_DEPLOYMENT_RESOURCES_LIMITS_CPU, memory: config.env.PROMETHEUS_DEPLOYMENT_RESOURCES_LIMITS_MEMORY },
           },
           volumeMounts: [{
             name: 'config-volume',

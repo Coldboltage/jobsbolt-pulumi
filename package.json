@@ -1,6 +1,5 @@
 {
     "name": "jobsbolt-pulumi",
-    "main": "./env/**/index.ts",
     "devDependencies": {
         "@types/node": "^18",
         "typescript": "^5.0.0"
@@ -10,6 +9,7 @@
         "@pulumi/pulumi": "^3.113.0",
         "@pulumi/awsx": "^2.0.2",
         "@pulumi/eks": "^v2.0.0",
+        "@pulumi/azure-native": "^2.0.0",
         "dotenv": "^16.4.5",
         "zod": "^3.23.8"
     }

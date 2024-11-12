@@ -1,33 +1,40 @@
 import * as k8s from "@pulumi/kubernetes";
-import { rabbitmqDeployment } from "../rabbitmq/rabbitmq-deployment"
-import { postgresDeployment } from "../postgres/postgres-deployment"
-import { prometheusDeployment } from "../prometheus/prometheus-deployment";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
+import { loadConfig } from "../config/config";
+import { postgresDeployment } from "../postgres/postgres-deployment";
 
+const config = loadConfig();
 
 const appLabels = { app: 'jobsbolt', component: 'api' };
-
 
 export const apiDeployment = new k8s.apps.v1.Deployment('jobsbolt-api-deployment', {
   metadata: {
     name: "jobsbolt-api-deployment",
     namespace: "default",
     labels: appLabels,
-    annotations: { "app.kubernetes.io/managed-by": "pulumi" },
   },
   spec: {
-    replicas: 1,
+    replicas: +config.env.API_DEPLOYMENT_REPLICAS,
     selector: { matchLabels: appLabels },
     template: {
       metadata: { labels: appLabels },
       spec: {
         containers: [{
-          image: "coldbolt/jobsbolt-api:local-latest",
+          image: config.env.API_DEPLOYMENT_CONTAINER_IMAGE,
           name: "jobsbolt-api",
+          imagePullPolicy: "Always",
           ports: [{ containerPort: 3000 }],
           resources: {
-            requests: { cpu: '200m', memory: '300Mi' },
-            limits: { cpu: '1', memory: '1Gi' },
+            requests: { cpu: config.env.API_DEPLOYMENT_RESOURCES_REQUESTS_CPU, memory: config.env.API_DEPLOYMENT_RESOURCES_REQUESTS_MEMORY },
+            limits: { cpu: config.env.API_DEPLOYMENT_RESOURCES_LIMITS_CPU, memory: config.env.API_DEPLOYMENT_RESOURCES_LIMITS_MEMORY },
+          },
+          readinessProbe: {
+            exec: {
+              command: ["sh", "-c", "echo 'Waiting for container'"] // Simple command, can be adjusted
+            },
+            initialDelaySeconds: 60, // Waits 30 seconds before probing readiness
+            periodSeconds: 5,        // Checks every 5 seconds
+            failureThreshold: 3,     // Number of failed attempts before failing the pod
           },
           env: [
             {

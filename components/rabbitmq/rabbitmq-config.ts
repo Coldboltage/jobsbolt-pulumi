@@ -1,6 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import { loadConfig } from "../config/config";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
 
 // Load the validated config
 const rabbitmqConfig = loadConfig().rabbitmq
@@ -18,5 +18,6 @@ export const rabbitmqConfigMap = new k8s.core.v1.ConfigMap("jobsbolt-rabbitmq-co
       `,
     replicas: rabbitmqConfig.RABBITMQ_REPLICA,
   },
-})
+}, { provider: provider });
+
 

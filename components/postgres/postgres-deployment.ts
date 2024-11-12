@@ -1,7 +1,9 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../eks/eks-deployment";
+import { provider } from "../azure/aks-deployment"
+import { loadConfig } from "../config/config";
 
 const appLabels = { app: 'jobsbolt', component: 'postgres' };
+const config = loadConfig()
 
 
 export const postgresDeployment = new k8s.apps.v1.Deployment('jobsbolt-postgres-deployment', {
@@ -10,7 +12,7 @@ export const postgresDeployment = new k8s.apps.v1.Deployment('jobsbolt-postgres-
     labels: appLabels,
   },
   spec: {
-    replicas: 1,
+    replicas: +config.env.POSTGRES_DEPLOYMENT_REPLICA,
     selector: {
       matchLabels: appLabels
     },
@@ -25,13 +27,17 @@ export const postgresDeployment = new k8s.apps.v1.Deployment('jobsbolt-postgres-
         containers: [{
           image: "postgres:13",
           name: "jobsbolt-postgres",
-          volumeMounts: [{ name: 'jobsbolt-postgres-volume', mountPath: '/var/lib/postgresql/data' }],
+          volumeMounts: [{ name: 'jobsbolt-postgres-volume', mountPath: '/var/lib/postgresql/' }],
           ports: [{ containerPort: 5432, name: 'postgres' }],
           resources: {
-            requests: { cpu: '100m', memory: '100Mi' },
-            limits: { cpu: '500m', memory: '500Mi' },
+            requests: { cpu: config.env.POSTGRES_DEPLOYMENT_RESOURCES_REQUESTS_CPU, memory: config.env.POSTGRES_DEPLOYMENT_RESOURCES_REQUESTS_MEMORY }, // Increase the minimum guaranteed resources
+            limits: { cpu: config.env.POSTGRES_DEPLOYMENT_RESOURCES_LIMITS_CPU, memory: config.env.POSTGRES_DEPLOYMENT_RESOURCES_LIMITS_MEMORY },    // Allow the pod to use more resources if needed
           },
           env: [
+            {
+              name: 'PGDATA', // Set PGDATA to use a subdirectory for the PostgreSQL data
+              value: '/var/lib/postgresql/data/'
+            },
             {
               name: 'POSTGRES_USER', valueFrom: {
                 configMapKeyRef: {

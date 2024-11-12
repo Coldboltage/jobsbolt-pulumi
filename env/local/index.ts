@@ -21,7 +21,6 @@ import { grafanaService } from "./grafana/grafana-service";
 import { grafanaPvc } from "./grafana/grafana-pvc";
 import { grafanaVolume } from "./grafana/grafana-volume";
 
-
 // RabitMQ resources
 export const rabbitmqDeploymentName = rabbitmqDeployment.metadata.name;
 export const rabbitmqServiceName = rabbitmqService.metadata.name;
