@@ -12,5 +12,5 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/index.ts"]
+  "include": ["./env/**/index.ts", "env/local/index.ts"]
 }
