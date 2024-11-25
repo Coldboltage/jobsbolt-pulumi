@@ -4,6 +4,9 @@ const stack = pulumi.getStack();
 if (stack === 'local') {
   console.log("fired local")
   require('./env/local/testing/index');
+} else if (stack === 'testing') {
+  console.log("fired testing")
+  require('./env/local/testing/index');
 } else if (stack === 'dev') {
   console.log("fired dev")
   require('./env/dev/index');
