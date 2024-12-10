@@ -1,7 +1,7 @@
 import * as k8s from "@pulumi/kubernetes";
 import { rabbitmqDeployment } from "../rabbitmq/rabbitmq-deployment"
 import { postgresDeployment } from "../postgres/postgres-deployment"
-import { prometheusDeployment } from "../../../components/prometheus/prometheus-deployment";
+import { prometheusDeployment } from "../prometheus/prometheus-deployment";
 
 const appLabels = { app: 'jobsbolt', component: 'api' };
 
