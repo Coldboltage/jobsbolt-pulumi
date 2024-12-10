@@ -21,10 +21,10 @@ export const workerDeployment = new k8s.apps.v1.Deployment("jobsbolt-worker-depl
             spec: {
                 containers: [{
                     name: "worker",
-                    image: "jobsbolt/worker:latest",
+                    image: "coldbolt/jobsbolt-worker:latest",
                     resources: {
                         requests: { cpu: '200m', memory: '300Mi' },
-                        limits: { cpu: '1', memory: '1Gi' },
+                        limits: { cpu: '2', memory: '2Gi' },
                     },
                     env: []
                 },

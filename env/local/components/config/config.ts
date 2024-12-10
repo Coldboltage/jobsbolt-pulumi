@@ -2,6 +2,7 @@ import * as pulumi from "@pulumi/pulumi";
 import { z } from "zod";
 import { rabbitmqSchema } from "./schema/rabbitmq-schema";
 import { apiSchema } from "./schema/api-schema";
+import { workerSchema } from "./schema/worker-schema";
 import * as dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
 
@@ -11,7 +12,8 @@ export const loadConfig = () => {
 
   const combinedSchema = z.object({
     api: apiSchema,
-    rabbitmq: rabbitmqSchema
+    rabbitmq: rabbitmqSchema,
+    worker: workerSchema
   });
 
   function getRequiredSecretEnvVar(varName: string): pulumi.Output<string> {
@@ -48,6 +50,9 @@ export const loadConfig = () => {
       TYPEORM_PASSWORD: getRequiredSecretEnvVar("TYPEORM_PASSWORD"),
       RABBITMQ_PASSWORD: getRequiredSecretEnvVar("RABBITMQ_PASSWORD"),
 
+    },
+    worker: {
+      JWT_TOKEN: getRequiredSecretEnvVar("JWT_TOKEN")
     },
     rabbitmq: {
       RABBITMQ_REPLICA: config.require("RABBITMQ_REPLICA"),

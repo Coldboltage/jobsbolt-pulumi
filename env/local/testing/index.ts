@@ -20,6 +20,8 @@ import { grafanaDeployment } from "../components/grafana/grafana-deployment";
 import { grafanaService } from "../components/grafana/grafana-service";
 import { grafanaPvc } from "../components/grafana/grafana-pvc";
 import { grafanaVolume } from "../components/grafana/grafana-volume";
+import { workerDeployment } from "../components/worker/worker-deployment"
+import { workerSecret } from "../components/worker/worker-secret"
 
 // RabitMQ resources
 export const rabbitmqDeploymentName = rabbitmqDeployment.metadata.name;
@@ -52,5 +54,9 @@ export const grafanaDeploymentName = grafanaDeployment.metadata.name;
 export const grafanaServiceName = grafanaService.metadata.name;
 export const grafanaPVCName = grafanaPvc.metadata.name;
 export const grafanaVolumeName = grafanaVolume.metadata.name;
+
+// Worker resources
+export const workerDeploymentName = workerDeployment.metadata.name
+export const workerSecretName = workerSecret.metadata.name
 
 
