@@ -1,27 +1,27 @@
-import { rabbitmqDeployment } from "../components/rabbitmq/rabbitmq-deployment";
-import { rabbitmqService } from "../components/rabbitmq/rabbitmq-service";
-import { rabbitmqConfigMap } from "../components/rabbitmq/rabbitmq-config";
-import { postgresDeployment } from "../components/postgres/postgres-deployment";
-import { postgresService } from "../components/postgres/postgres-service";
-import { postgresConfigMap } from "../components/postgres/postgres-config";
-import { postgresPVC } from "../components/postgres/postgres-pvc";
-import { postgresSecret } from "../components/postgres/postgres-secret";
-import { postgresPV } from "../components/postgres/postgres-pv";
-import { prometheusDeployment } from "../components/prometheus/prometheus-deployment";
-import { prometheusService } from "../components/prometheus/prometheus-service";
-import { prometheusConfigMap } from "../components/prometheus/prometheus-config";
-import { prometheusPV } from "../components/prometheus/prometheus-pv";
-import { prometheusPVC } from "../components/prometheus/prometheus-pvc";
-import { apiDeployment } from "../components/api/api-deployment";
-import { apiConfigMap } from "../components/api/api-config";
-import { apiService } from "../components/api/api-service";
-import { apiSecret } from "../components/api/api-secret";
-import { grafanaDeployment } from "../components/grafana/grafana-deployment";
-import { grafanaService } from "../components/grafana/grafana-service";
-import { grafanaPvc } from "../components/grafana/grafana-pvc";
-import { grafanaVolume } from "../components/grafana/grafana-volume";
-import { workerDeployment } from "../components/worker/worker-deployment"
-import { workerSecret } from "../components/worker/worker-secret"
+import { rabbitmqDeployment } from "../../../components/rabbitmq/rabbitmq-deployment";
+import { rabbitmqService } from "../../../components/rabbitmq/rabbitmq-service";
+import { rabbitmqConfigMap } from "../../../components/rabbitmq/rabbitmq-config";
+import { postgresDeployment } from "../../../components/postgres/postgres-deployment";
+import { postgresService } from "../../../components/postgres/postgres-service";
+import { postgresConfigMap } from "../../../components/postgres/postgres-config";
+import { postgresPVC } from "../../../components/postgres/postgres-pvc-pv";
+import { postgresSecret } from "../../../components/postgres/postgres-secret";
+import { postgresPV } from "../../../components/postgres/postgres-pv";
+import { prometheusDeployment } from "../../../components/prometheus/prometheus-deployment";
+import { prometheusService } from "../../../components/prometheus/prometheus-service";
+import { prometheusConfigMap } from "../../../components/prometheus/prometheus-config";
+import { prometheusPV } from "../../../components/prometheus/prometheus-pv";
+import { prometheusPVC } from "../../../components/prometheus/prometheus-pvc-pv";
+import { apiDeployment } from "../../../components/api/api-deployment";
+import { apiConfigMap } from "../../../components/api/api-config";
+import { apiService } from "../../../components/api/api-service";
+import { apiSecret } from "../../../components/api/api-secret";
+import { grafanaDeployment } from "../../../components/grafana/grafana-deployment";
+import { grafanaService } from "../../../components/grafana/grafana-service";
+import { grafanaPVC } from "../../../components/grafana/grafana-pvc-pv";
+import { grafanaPV } from "../../../components/grafana/grafana-pv";
+import { workerDeployment } from "../../../components/worker/worker-deployment"
+import { workerSecret } from "../../../components/worker/worker-secret"
 
 // RabitMQ resources
 export const rabbitmqDeploymentName = rabbitmqDeployment.metadata.name;
@@ -52,8 +52,8 @@ export const apiSecretName = apiSecret.metadata.name
 // Grafana resources
 export const grafanaDeploymentName = grafanaDeployment.metadata.name;
 export const grafanaServiceName = grafanaService.metadata.name;
-export const grafanaPVCName = grafanaPvc.metadata.name;
-export const grafanaVolumeName = grafanaVolume.metadata.name;
+export const grafanaPVCName = grafanaPVC.metadata.name;
+export const grafanaPVName = grafanaPV.metadata.name;
 
 // Worker resources
 export const workerDeploymentName = workerDeployment.metadata.name

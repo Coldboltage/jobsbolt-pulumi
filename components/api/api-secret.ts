@@ -1,6 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import { loadConfig } from "../config/config";
-import { provider } from "../azure/aks-deployment"
+import { provider } from "../provider/provider"
 
 
 const appLabels = { app: 'jobsbolt', component: 'postgres' };
@@ -21,6 +21,8 @@ export const apiSecret = new k8s.core.v1.Secret('jobsbolt-api-secret', {
     DISCORD_KEY: config.api.DISCORD_KEY,
     SENTRY_DSN: config.api.SENTRY_DSN,
     SENTRY_AUTH_TOKEN: config.api.SENTRY_AUTH_TOKEN,
+    SENDGRID_API_KEY: config.api.SENDGRID_API_KEY,
+    SG_2: config.api.SG_2,
   }
 }, { provider: provider })
 

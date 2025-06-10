@@ -1,5 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../azure/aks-deployment"
+import { provider } from "../provider/provider"
 
 export const prometheusStorageClass = new k8s.storage.v1.StorageClass("azure-disk", {
   metadata: { name: "prometheus-azure-disk" },

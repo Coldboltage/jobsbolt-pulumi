@@ -19,6 +19,7 @@ import { apiConfigMap } from "../../components/api/api-config";
 import { apiService } from "../../components/api/api-service";
 import { apiSecret } from "../../components/api/api-secret";
 import { apiDeployment } from "../../components/api/api-deployment";
+import { awsEks } from "../../components/aws/aws-eks"
 // import { grafanaService } from "../../components/grafana/grafana-service";
 // import { grafanaPvc } from "../../components/grafana/grafana-pvc";
 // import { grafanaVolume } from "../../components/grafana/grafana-volume";
@@ -26,13 +27,16 @@ import { apiDeployment } from "../../components/api/api-deployment";
 
 import { provider, kubeconfig, clusterName, networkName, rgName, managedDiskName } from "../../components/azure/aks-deployment";
 
-// Azure resources
-export const resourceGroupName = rgName;          // Exports the resource group name
-export const vNetName = networkName;              // Exports the virtual network name
-export const kubernetesClusterName = clusterName; // Exports the AKS cluster name
-export const kubeConfigOutput = pulumi.secret(kubeconfig);       // Exports kubeconfig if needed (secured)
-export const k8sAdminProvider = provider;         // Exports the Kubernetes provider for other components to use
-export const azureManagedDiskName = managedDiskName
+// // Azure resources
+// export const resourceGroupName = rgName;          // Exports the resource group name
+// export const vNetName = networkName;              // Exports the virtual network name
+// export const kubernetesClusterName = clusterName; // Exports the AKS cluster name
+// export const kubeConfigOutput = pulumi.secret(kubeconfig);       // Exports kubeconfig if needed (secured)
+// export const k8sAdminProvider = provider;         // Exports the Kubernetes provider for other components to use
+// export const azureManagedDiskName = managedDiskName
+
+// AWS Resources
+export const awsEksName = awsEks.eksCluster.name
 
 
 // // RabitMQ resources
@@ -49,11 +53,11 @@ export const postgresSecretName = postgresSecret.metadata.name;
 export const postgresStorageClassName = postgresStorageClass.metadata.name;
 
 // // Prometheus resources
-export const prometheusDeploymentName = prometheusDeployment.metadata.name;
-export const prometheusServiceName = prometheusService.metadata.name;
-export const prometheusConfigMapName = prometheusConfigMap.metadata.name;
-export const prometheusStorageClassName = prometheusStorageClass.metadata.name;
-export const prometheusPVCName = prometheusPVC.metadata.name;
+// export const prometheusDeploymentName = prometheusDeployment.metadata.name;
+// export const prometheusServiceName = prometheusService.metadata.name;
+// export const prometheusConfigMapName = prometheusConfigMap.metadata.name;
+// export const prometheusStorageClassName = prometheusStorageClass.metadata.name;
+// export const prometheusPVCName = prometheusPVC.metadata.name;
 
 // // API resources
 export const apiDeploymentName = apiDeployment.metadata.name;

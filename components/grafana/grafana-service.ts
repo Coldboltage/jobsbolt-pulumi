@@ -1,5 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../azure/aks-deployment"
+import { provider } from "../provider/provider"
 
 const appLabels = { app: 'jobsbolt', component: 'grafana' };
 

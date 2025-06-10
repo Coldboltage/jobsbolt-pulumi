@@ -3,6 +3,7 @@ import { z } from "zod";
 import { rabbitmqSchema } from "./schema/rabbitmq-schema";
 import { apiSchema } from "./schema/api-schema";
 import { envSchema } from "./schema/env-schema";
+import { workerSchema } from "./schema/worker-schema"
 
 import * as dotenv from 'dotenv';
 import path = require("path");
@@ -10,8 +11,9 @@ import path = require("path");
 const stack = pulumi.getStack();
 
 console.log(stack)
+
 if (stack === 'local') {
-  dotenv.config({ path: '../../env/local/.env' });
+  dotenv.config({ path: path.resolve(__dirname, '../../env/local/testing/.env') });
 } else if (stack === 'dev') {
   dotenv.config({ path: path.resolve(__dirname, '../../env/dev/.env') });
 }
@@ -22,7 +24,8 @@ export const loadConfig = () => {
   const combinedSchema = z.object({
     api: apiSchema,
     rabbitmq: rabbitmqSchema,
-    env: envSchema
+    env: envSchema,
+    worker: workerSchema
   });
 
   function getRequiredSecretEnvVar(varName: string): pulumi.Output<string> {
@@ -36,6 +39,8 @@ export const loadConfig = () => {
   const extractedConfig = {
     api: {
       API_URL: config.require("API_URL"),
+      WEBSITE_URL: config.require("WEBSITE_URL"),
+      NODE_ENV: config.require("NODE_ENV"),
       RABBITMQ_URL: config.require("RABBITMQ_URL"),
       RABBITMQ_USERNAME: config.require("RABBITMQ_USERNAME"),
       TYPEORM_TYPE: config.require("TYPEORM_TYPE"),
@@ -58,7 +63,13 @@ export const loadConfig = () => {
       SENTRY_AUTH_TOKEN: getRequiredSecretEnvVar("SENTRY_AUTH_TOKEN"),
       TYPEORM_PASSWORD: getRequiredSecretEnvVar("TYPEORM_PASSWORD"),
       RABBITMQ_PASSWORD: getRequiredSecretEnvVar("RABBITMQ_PASSWORD"),
+      SENDGRID_API_KEY: getRequiredSecretEnvVar("SENDGRID_API_KEY"),
+      SG_2: getRequiredSecretEnvVar("SG_2"),
     },
+    worker: {
+      JWT_TOKEN: getRequiredSecretEnvVar("JWT_SECRET")
+    }
+    ,
     rabbitmq: {
       RABBITMQ_REPLICA: config.require("RABBITMQ_REPLICA"),
       RABBITMQ_URL: config.require("RABBITMQ_URL"),
@@ -126,6 +137,6 @@ export const loadConfig = () => {
     }
     throw new Error(errorMessages);
   }
-
+  console.log(validatedConfig.data)
   return validatedConfig.data;
 }

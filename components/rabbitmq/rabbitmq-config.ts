@@ -1,6 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import { loadConfig } from "../config/config";
-import { provider } from "../azure/aks-deployment"
+import { provider } from "../provider/provider"
 
 // Load the validated config
 const rabbitmqConfig = loadConfig().rabbitmq

@@ -43,7 +43,7 @@ config:
   jobsbolt:grafana_deployment_resources_requests_memory: 100Mi
   jobsbolt:grafana_deployment_resources_limits_cpu: 500m
   jobsbolt:grafana_deployment_resources_limits_memory: 500Mi
-  jobsbolt:grafana_pvc_storage: 2Gi
+  jobsbolt:grafana_pvc_storage: 5Gi
 
   # Postgres
   jobsbolt:postgres_deployment_replica: 1

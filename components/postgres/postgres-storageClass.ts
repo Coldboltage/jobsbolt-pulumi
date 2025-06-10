@@ -1,11 +1,16 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../azure/aks-deployment"
+import { provider } from "../provider/provider"
 
-export const postgresStorageClass = new k8s.storage.v1.StorageClass("prometheus-azure-disk", {
-  metadata: { name: "prometheus-azure-disk" },
-  provisioner: "kubernetes.io/azure-disk",
+const appLabels = { app: 'jobsbolt', component: 'postgres' };
+
+
+export const postgresStorageClass = new k8s.storage.v1.StorageClass("jobsbolt-postgres-storage-class", {
+  metadata: { name: "jobsbolt-postgres-storage-class", labels: appLabels },
+  provisioner: "ebs.csi.aws.com",
   parameters: {
-    storageaccounttype: "Standard_LRS",  // Storage type
-    kind: "Managed",  // Managed Disk
+    type: "gp3",
+    fsType: "ext4",
   },
+  reclaimPolicy: "Retain",
+  volumeBindingMode: "WaitForFirstConsumer",
 }, { provider: provider });

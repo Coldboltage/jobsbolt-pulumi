@@ -1,7 +1,7 @@
 import * as k8s from "@pulumi/kubernetes";
-import { provider } from "../azure/aks-deployment"
+import { provider } from "../provider/provider"
 
-export const postgresStorageClass = new k8s.storage.v1.StorageClass("grafana-azure-disk", {
+export const grafanaStorageClass = new k8s.storage.v1.StorageClass("grafana-azure-disk", {
   metadata: { name: "grafana-azure-disk" },
   provisioner: "kubernetes.io/azure-disk",
   parameters: {

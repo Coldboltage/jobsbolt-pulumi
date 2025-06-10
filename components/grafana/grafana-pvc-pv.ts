@@ -10,10 +10,9 @@ export const grafanaPVC = new k8s.core.v1.PersistentVolumeClaim("grafana-pvc", {
   metadata: { name: "jobsbolt-grafana-pvc" },
   spec: {
     accessModes: ["ReadWriteOnce"],
-    storageClassName: "grafana-azure-disk", // Use the disk storage class
     resources: {
       requests: {
-        storage: config.env.GRAFANA_PVC_STORAGE, // Size of the disk
+        storage: config.env.GRAFANA_PVC_STORAGE
       },
     },
   },
