@@ -4,3 +4,7 @@ local/.env
 env/dev/.env
 env/local/.env
 .env
+old/env/local/Pulumi.local.yaml
+Pulumi.dev.yaml
+Pulumi.dev.yaml
+old
